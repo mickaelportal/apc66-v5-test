@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#102C50"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="APC66"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icon-192.png"><title>APC66 — Gestion du parc automobile</title>
+<style>
+:root{--blue:#123b67;--blue2:#1b568c;--yellow:#f5c400;--ink:#172536;--muted:#66758a;--line:#dfe6ee;--bg:#f3f6fa;--red:#b42318;--green:#18794e;--orange:#a15c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{background:linear-gradient(120deg,#0e3157,var(--blue2));color:#fff;padding:19px clamp(16px,4vw,44px);border-bottom:5px solid var(--yellow)}.top{max-width:1450px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:14px}.mark{width:54px;height:54px;border:2px solid white;border-radius:50%;display:grid;place-items:center;background:white;color:var(--blue);font-weight:900;box-shadow:inset 0 0 0 4px var(--yellow)}h1{font-size:clamp(19px,2.8vw,28px);margin:0;line-height:1.2}.subtitle{color:#dbe8f5;margin-top:5px;font-size:13px}.badge{border:1px solid #8fb0d2;border-radius:99px;padding:7px 12px;font-size:12px}
+main{max-width:1450px;margin:24px auto;padding:0 clamp(12px,3vw,30px) 40px}.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}.intro h2{margin:0 0 4px;font-size:24px}.intro p{margin:0;color:var(--muted)}.actions,.filters{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:9px;background:#fff;padding:10px 13px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.yellow{background:var(--yellow);border-color:var(--yellow);color:#172536}.btn.danger{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 8px #153b5e08}.stat{padding:16px 18px}.stat-label{font-size:13px;color:var(--muted)}.stat-value{font-size:29px;font-weight:850;margin-top:4px}.stat-note{font-size:12px;color:var(--muted);margin-top:3px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--blue2);margin-right:6px}.warn .dot{background:#e49a15}.alert .dot{background:var(--red)}
+.tabs{display:flex;gap:3px;padding:10px 13px 0;border-bottom:1px solid var(--line);overflow-x:auto}.tab{padding:11px 13px;border:0;background:transparent;color:var(--muted);font-weight:750;white-space:nowrap;border-bottom:3px solid transparent}.tab.active{color:var(--blue);border-bottom-color:var(--yellow)}.toolbar{padding:14px;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.search{min-width:210px;max-width:420px;flex:1}.search input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px}.filters select{padding:10px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:800px}th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;background:#f8fafc;padding:12px 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}td{padding:13px 14px;border-bottom:1px solid #edf1f5;vertical-align:middle}tbody tr:hover{background:#fafcff}.vehicle{font-weight:800;color:var(--blue)}.sub{font-size:12px;color:var(--muted);margin-top:3px}.pill{display:inline-flex;border-radius:99px;padding:5px 8px;font-size:12px;font-weight:750;white-space:nowrap}.pill.ok{background:#e6f5ed;color:var(--green)}.pill.warn{background:#fff3d6;color:var(--orange)}.pill.bad{background:#fde9e7;color:var(--red)}.pill.neutral{background:#eaf0f7;color:#465a70}.row-actions{display:flex;gap:5px;flex-wrap:wrap}.iconbtn{border:1px solid var(--line);background:white;color:var(--blue);border-radius:7px;padding:6px 8px;font-size:12px;font-weight:700}.empty{text-align:center;padding:42px 16px;color:var(--muted)}.empty strong{display:block;color:var(--ink);font-size:17px;margin-bottom:5px}.notice{margin-top:15px;border:1px solid #d5e4f4;background:#edf5fc;color:#274b70;padding:13px 15px;border-radius:10px;font-size:13px}.notice strong{color:#183e65}footer{max-width:1450px;margin:auto;padding:0 24px 26px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.backdrop{position:fixed;inset:0;background:#10233899;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.backdrop.show{display:flex}.modal{background:white;border-radius:16px;width:min(800px,100%);max-height:92vh;overflow:auto;box-shadow:0 20px 70px #0003}.modal-head{padding:17px 21px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0;font-size:20px}.close{border:0;background:#eef2f6;border-radius:8px;padding:6px 11px;font-size:18px}.modal-body{padding:20px 21px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:750;color:#34465b}.field input,.field select,.field textarea{width:100%;border:1px solid #ccd6e1;border-radius:8px;padding:10px;background:white;color:var(--ink)}.field textarea{min-height:76px;resize:vertical}.modal-foot{padding:0 21px 20px;display:flex;justify-content:flex-end;gap:8px}.help{font-size:12px;color:var(--muted)}.record{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:9px}.record-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:750}.record-meta{font-size:12px;color:var(--muted);margin:4px 0}.record-note{font-size:13px;white-space:pre-wrap}.small-title{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);font-weight:850;margin:18px 0 10px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:12px}.metric span{display:block;font-size:12px;color:var(--muted)}.metric b{display:block;margin-top:4px}.login-note{font-size:13px;color:var(--muted)}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.badge{display:none}.form-grid,.two-col{grid-template-columns:1fr}.field.full{grid-column:auto}.intro h2{font-size:21px}.stat-value{font-size:25px}}@media(max-width:430px){.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:23px}.actions .btn{flex:1}}
+/* Identité visuelle APC66 — 2026 : uniquement présentation */
+:root{--blue:#12355b;--blue2:#1c4a78;--yellow:#f78d20;--ink:#152b43;--muted:#61758b;--line:#dde7f0;--bg:#f3f6fa;--orange:#9a5005}
+header{background:linear-gradient(115deg,#0d2948 0%,#123b65 72%,#1c4b7b 100%);border-bottom:5px solid #f78d20;box-shadow:0 8px 24px #0c284322}
+.mark{width:70px;height:70px;flex-shrink:0;background:#fff;border:3px solid #fff;box-shadow:0 4px 18px #0002;overflow:hidden}
+.mark img{display:block;width:100%;height:100%;object-fit:contain}
+h1{font-weight:850;letter-spacing:-.035em}
+.subtitle{color:#f3d3b2;font-weight:600;letter-spacing:.015em}
+main{margin-top:28px}
+.intro h2{font-size:clamp(24px,3vw,32px);font-weight:850;letter-spacing:-.04em}
+.stat,.panel{border-radius:17px;box-shadow:0 8px 24px #12355b0a}
+.stat{border-top:3px solid #f78d20;padding:20px}
+.stat-value{color:#12355b}
+.btn{border-radius:11px;transition:background .15s,transform .15s}
+.btn:hover,.iconbtn:hover{transform:translateY(-1px)}
+.btn.primary{background:#f78d20;border-color:#f78d20;color:#182c44}
+.btn.primary:hover{background:#eb7c10}
+.btn.yellow{background:#f78d20;border-color:#f78d20}
+.tab.active{border-bottom-color:#f78d20}
+.tabs{gap:12px}
+.tab{padding:15px 14px}
+.tab.active{color:#12355b}
+.login-note{line-height:1.6}
+#loginPanel{border-top:5px solid #f78d20}
+.field input:focus,.field select:focus,.field textarea:focus,.search input:focus{outline:2px solid #f78d20;outline-offset:1px}
+@media(max-width:550px){.mark{width:55px;height:55px}.brand{gap:10px}header{padding:15px}.subtitle{font-size:12px}.stat{padding:13px}.tabs{gap:2px}}
+
+/* APC66 — optimisation smartphone : sans changement des règles métier */
+@media(max-width:700px){
+ html,body{max-width:100%;overflow-x:hidden}
+ header{padding:13px 14px}
+ .top,.brand{min-width:0}
+ .brand{align-items:center}
+ .brand>div:last-child{min-width:0}
+ h1{font-size:clamp(16px,4.6vw,22px);overflow-wrap:anywhere}
+ .subtitle{font-size:11px;line-height:1.35}
+ main{padding:0 12px 24px;margin-top:18px}
+ .intro{display:block;margin-bottom:14px}
+ .intro h2{font-size:23px}
+ .intro p{font-size:13px}
+ .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+ .actions .btn{width:100%;min-width:0;min-height:44px;padding:10px 7px;font-size:12px}
+ .actions #addVehicle{grid-column:1/-1;font-size:14px}
+ .stats{gap:9px;margin-bottom:13px}
+ .stat{min-width:0;padding:12px}
+ .stat-label{font-size:12px;line-height:1.25}
+ .stat-value{font-size:27px}
+ .stat-note{font-size:11px}
+ .panel{border-radius:15px}
+ .tabs{padding:5px 7px 0;gap:3px;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:thin}
+ .tab{padding:13px 11px;min-height:46px;font-size:13px;scroll-snap-align:start}
+ .toolbar{display:grid;grid-template-columns:1fr;gap:10px;padding:12px}
+ .search{min-width:0;max-width:none;width:100%}
+ .search input{min-height:46px;font-size:16px}
+ .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .filters select{min-width:0;width:100%;font-size:13px}
+ .filters .btn{min-width:0;font-size:12px;padding:10px 6px;min-height:44px}
+ .table-wrap{overflow:visible;padding:0 10px 12px}
+ table{min-width:0;width:100%;display:block}
+ thead{display:none}
+ tbody{display:grid;gap:11px}
+ tbody tr{display:block;border:1px solid var(--line);border-left:4px solid #f78d20;border-radius:13px;background:white;box-shadow:0 3px 10px #12355b0b;overflow:hidden}
+ tbody td{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px 12px;border-bottom:1px solid #edf1f5;min-width:0;overflow-wrap:anywhere;text-align:right}
+ tbody td:last-child{border-bottom:0}
+ tbody td::before{content:attr(data-label);color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.025em;text-align:left;max-width:42%;flex:0 0 42%;padding-top:2px}
+ tbody td .row-actions{justify-content:flex-end;width:100%}
+ tbody td:has(.row-actions){flex-wrap:wrap}
+ tbody td:has(.row-actions)::before{flex:1}
+ .iconbtn{min-height:40px;padding:9px 12px}
+ .modal{max-height:calc(100dvh - 16px);width:100%;border-radius:14px}
+ .backdrop{padding:8px;align-items:center}
+ .modal-head{padding:13px 15px}
+ .modal-head h3{font-size:17px}
+ .modal-body{padding:15px}
+ .modal-foot{padding:0 15px 15px;display:grid;grid-template-columns:1fr 1fr}
+ .modal-foot .btn{min-height:46px}
+ .field input,.field select,.field textarea{font-size:16px;min-height:44px}
+ .close{min-width:44px;min-height:44px}
+ #loginPanel{margin:16px auto!important;padding:18px!important}
+ #loginPanel .btn{min-height:44px}
+ .notice{font-size:12px}
+ footer{padding:0 14px 24px;font-size:11px}
+}
+@media(max-width:370px){
+ .stat-value{font-size:23px}
+ .filters{grid-template-columns:1fr}
+ .actions .btn{font-size:11px}
+ .mark{width:48px;height:48px}
+}
+
+.deadline-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.deadline-summary{font-size:12px;font-weight:800;color:var(--muted)}.deadline-items{display:grid;gap:8px;margin-top:14px}.deadline-item{display:grid;grid-template-columns:115px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}.deadline-kind{font-size:12px;color:var(--muted);font-weight:700}.deadline-vehicle{font-weight:800;overflow-wrap:anywhere}.deadline-date{font-size:12px;color:var(--muted);margin-top:3px}.deadline-pill{font-size:12px;font-weight:800;border-radius:20px;padding:7px 10px;white-space:nowrap}.deadline-item.late{border-left:5px solid #cb3434}.deadline-item.late .deadline-pill{background:#fce7e7;color:#9e2020}.deadline-item.soon{border-left:5px solid #e99b1d}.deadline-item.soon .deadline-pill{background:#fff1d8;color:#85510a}.deadline-item.ok{border-left:5px solid #259b62}.deadline-item.ok .deadline-pill{background:#e4f5eb;color:#14643d}.activity-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.activity-metric{background:#f5f8fc;border:1px solid var(--line);border-radius:12px;padding:13px}.activity-metric strong{display:block;color:#12355b;font-size:23px}.activity-metric span{font-size:12px;color:var(--muted)}
+@media(max-width:700px){#deadlinePanel,#maintenanceSummary{padding:13px!important}.deadline-item{grid-template-columns:1fr auto;gap:5px 10px;padding:11px}.deadline-kind{grid-column:1/-1}.deadline-pill{grid-column:2;grid-row:2/4}.deadline-vehicle,.deadline-date{grid-column:1}.activity-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.smart-alert{display:grid;grid-template-columns:68px 1fr auto;gap:12px;align-items:center;padding:10px;border-bottom:1px solid #e5eaf0}
+.smart-alert:last-child{border-bottom:0}.smart-alert small{display:block;color:var(--muted)}.smart-stage{background:#fff0d5;color:#8b5000;border-radius:20px;text-align:center;font-size:12px;font-weight:800;padding:7px 5px}
+.smart-alert.urgent .smart-stage{background:#ffe4e4;color:#9e2222}
+@media(max-width:650px){.smart-alert{grid-template-columns:54px 1fr;gap:7px}.smart-alert>b{grid-column:2;font-size:12px}.smart-alert small{font-size:11px}}
+
+.v5navbuttons{display:flex;gap:10px;flex-wrap:wrap}.v5navbuttons .btn{flex:1;min-width:190px}.v5row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}.v5row input,.v5row select{padding:10px;border:1px solid #ccd6e1;border-radius:8px;max-width:100%}.v5table{overflow:auto}.v5table table{min-width:680px}.v5table td,.v5table th{padding:9px}.v5notice{padding:12px;border-radius:9px;background:#edf5fc;margin:12px 0}.v5form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}.v5form label{display:flex;flex-direction:column;font-weight:700;font-size:12px;gap:4px}.v5form input,.v5form select{padding:9px;border:1px solid #ccd6e1;border-radius:8px}.v5small{font-size:12px;color:#61758b}@media(max-width:700px){.v5navbuttons{display:grid}.v5table table{display:table;min-width:650px}.v5table thead{display:table-header-group}.v5table tbody{display:table-row-group}.v5table tr{display:table-row}.v5table td{display:table-cell;text-align:left}.v5table td:before{display:none}}
+</style></head><body>
+<header><div class="top"><div class="brand"><div class="mark"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Protection_Civile_-_Logo_2017.svg" alt="Logo de la Protection Civile" width="64" height="64"></div><div><h1>Protection Civile — Pyrénées-Orientales</h1><div class="subtitle">Suivi du parc automobile · APC66</div></div></div><div class="badge" id="sessionBadge">APC66 · Connexion requise</div></div></header>
+<main>
+<section id="loginPanel" class="panel" style="max-width:520px;margin:30px auto;padding:24px">
+<h2 style="margin-top:0">Connexion sécurisée</h2>
+<p class="login-note">Connectez-vous avec le compte individuel créé pour vous par l’administrateur APC66.</p>
+<form id="loginForm"><div class="form-grid" style="grid-template-columns:1fr">
+<div class="field"><label for="loginEmail">Adresse e-mail</label><input id="loginEmail" type="email" autocomplete="username" required></div>
+<div class="field"><label for="loginPassword">Mot de passe</label><input id="loginPassword" type="password" autocomplete="current-password" required></div>
+</div><p id="loginError" role="alert" style="color:#b42318;display:none"></p>
+<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap"><button class="btn primary" id="loginSubmit" type="submit">Se connecter</button><button class="btn" id="forgotPassword" type="button">Mot de passe oublié</button></div></form>
+<p class="help" style="margin-top:16px">Les comptes sont gérés par l’administrateur. Il n’y a pas d’inscription publique.</p>
+</section>
+<div id="appContent" hidden>
+<section class="panel" id="v5nav" style="padding:16px;margin-bottom:18px"><h3 style="margin:0 0 12px">Espaces APC66</h3><div class="v5navbuttons"><button type="button" class="btn primary" id="v5fleet">🚗 Parc automobile</button><button type="button" class="btn" id="v5vpsp">🚑 Inventaire VPSP</button><button type="button" class="btn" id="v5bags">🧰 Inventaire des sacs</button></div></section><section id="v5workspace" class="panel" hidden style="padding:18px;margin-bottom:18px"></section><div id="v5fleetarea"><section class="intro"><div><h2>Gestion du parc automobile</h2><p>Entretiens, réparations, documents administratifs et échéances.</p></div><div class="actions"><button class="btn" id="export">↧ Exporter</button><button class="btn" id="pdfExport">▤ Export PDF</button><button class="btn" id="importBtn">↥ Importer</button><button class="btn" id="logoutBtn">Se déconnecter</button><button class="btn primary" id="addVehicle">＋ Ajouter un véhicule</button></div></section>
+<section class="stats"><div class="stat"><div class="stat-label"><span class="dot"></span>Véhicules suivis</div><div class="stat-value" id="nVehicles">0</div><div class="stat-note">Parc enregistré</div></div><div class="stat warn"><div class="stat-label"><span class="dot"></span>Échéances à venir</div><div class="stat-value" id="nSoon">0</div><div class="stat-note">Dans les 30 prochains jours</div></div><div class="stat alert"><div class="stat-label"><span class="dot"></span>Échéances en retard</div><div class="stat-value" id="nLate">0</div><div class="stat-note">À vérifier en priorité</div></div><div class="stat"><div class="stat-label"><span class="dot"></span>Interventions</div><div class="stat-value" id="nServices">0</div><div class="stat-note">Historique enregistré</div></div></section>
+<section class="panel" id="deadlinePanel" style="padding:18px;margin-bottom:18px"><div class="deadline-head"><div><h3 style="margin:0 0 4px">Échéances prioritaires</h3><p class="help" style="margin:0">Contrôles techniques, assurances, entretiens et documents — alertes visuelles, sans notification automatique.</p></div><span id="deadlineSummary" class="deadline-summary"></span></div><div id="deadlineItems" class="deadline-items" aria-live="polite"></div></section>
+<section class="panel" id="smartAlertPanel" style="padding:18px;margin-bottom:18px"><h3 style="margin:0 0 6px">🔔 Rappels anticipés et kilométriques</h3><p class="help">Jalons à 60, 30, 15 et 7 jours ; entretiens à moins de 1 000 km. Alertes visibles dans le site uniquement.</p><div id="smartAlertItems"></div></section><section class="panel" id="maintenanceSummary" style="padding:18px;margin-bottom:18px"><h3 style="margin:0 0 12px">Activité du parc</h3><div id="activityMetrics" class="activity-metrics"></div></section>
+<section class="panel"><nav class="tabs"><button class="tab active" data-tab="vehicles">Véhicules</button><button class="tab" data-tab="maintenance">Entretiens & réparations</button><button class="tab" data-tab="documents">Documents & échéances</button><button class="tab" data-tab="responsibles">Responsables</button></nav>
+<div class="toolbar"><div class="search"><input id="search" type="search" placeholder="Rechercher un véhicule, une intervention…"></div><div class="filters"><select id="filter"><option value="">Toutes les échéances</option><option value="late">En retard</option><option value="soon">Dans les 30 jours</option><option value="ok">À jour</option></select><button class="btn" id="addRecord">＋ Ajouter une entrée</button></div></div>
+<div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div><div id="empty" class="empty" hidden><strong>Aucun élément à afficher</strong>Ajoutez un véhicule ou ajustez votre recherche.</div></section>
+</div><div class="notice"><strong>Version connectée — phase de test :</strong> les données sont partagées via Supabase après connexion. Vérifiez les comptes et autorisations avec des données fictives avant tout usage opérationnel. Exportez régulièrement une sauvegarde et ne stockez pas de données personnelles inutiles.</div>
+</div>
+</main><footer><span>APC66 · Suivi du parc automobile</span><span>Accès réservé aux comptes autorisés · Phase de validation.</span></footer>
+<div class="backdrop" id="backdrop" role="dialog" aria-modal="true"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Ajouter</h3><button class="close" id="close">×</button></div><form id="form"><div class="modal-body" id="modalBody"></div><div class="modal-foot"><button type="button" class="btn" id="cancel">Annuler</button><button class="btn primary" id="save" type="submit">Enregistrer</button></div></form></div></div><input type="file" id="fileInput" accept=".json,application/json" hidden>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(()=>{const SUPABASE_URL='https://deevoohyuvgwixniieje.supabase.co';const SUPABASE_KEY='sb_publishable_Vl8ujkL0YpK4l7u-9hdFeQ_bQhWWX6f';let supabaseClient=null,currentUser=null,currentRole='responsable';let db={vehicles:[],services:[],documents:[],responsibles:[]},tab='vehicles',mode='',editId=null;const $=id=>document.getElementById(id);const today=new Date();today.setHours(0,0,0,0);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);const date=d=>{if(!d)return'—';const x=new Date(d+'T00:00:00');return isNaN(x)?'—':x.toLocaleDateString('fr-FR')};const vehicle=id=>db.vehicles.find(v=>v.id===id);
+function fromVehicle(x){return {id:x.id,name:x.name||'',plate:x.plate||'',type:x.type||'',brand:x.brand||'',km:x.km??'',responsible:x.responsible||'',nextService:x.next_service||'',nextKm:x.next_km??'',techDate:x.tech_date||'',insuranceDate:x.insurance_date||'',adminDate:x.admin_date||'',notes:x.notes||''}}
+function toVehicle(x){return {id:x.id,name:x.name,plate:x.plate||null,type:x.type||null,brand:x.brand||null,km:x.km===''||x.km==null?null:Number(x.km),responsible:x.responsible||null,next_service:x.nextService||null,next_km:x.nextKm===''||x.nextKm==null?null:Number(x.nextKm),tech_date:x.techDate||null,insurance_date:x.insuranceDate||null,admin_date:x.adminDate||null,notes:x.notes||null}}
+function fromService(x){return {id:x.id,vehicleId:x.vehicle_id,kind:x.kind,date:x.service_date,km:x.km??'',cost:x.cost??'',provider:x.provider||'',responsible:x.responsible||'',nextDate:x.next_date||'',nextKm:x.next_km??'',notes:x.notes||''}}
+function toService(x){return {id:x.id,vehicle_id:x.vehicleId,kind:x.kind,service_date:x.date,km:x.km===''||x.km==null?null:Number(x.km),cost:x.cost===''||x.cost==null?null:Number(x.cost),provider:x.provider||null,responsible:x.responsible||null,next_date:x.nextDate||null,next_km:x.nextKm===''||x.nextKm==null?null:Number(x.nextKm),notes:x.notes||null}}
+function fromDocument(x){return {id:x.id,vehicleId:x.vehicle_id,kind:x.kind,dueDate:x.due_date||'',reference:x.reference||'',notes:x.notes||''}}
+function toDocument(x){return {id:x.id,vehicle_id:x.vehicleId,kind:x.kind,due_date:x.dueDate||null,reference:x.reference||null,notes:x.notes||null}}
+function fromResponsible(x){return {id:x.id,name:x.name,role:x.role||'',contact:x.contact||'',notes:x.notes||''}}
+function toResponsible(x){return {id:x.id,name:x.name,role:x.role||null,contact:x.contact||null,notes:x.notes||null}}
+async function load(){const results=await Promise.all([supabaseClient.from('vehicles').select('*').order('name'),supabaseClient.from('services').select('*').order('service_date',{ascending:false}),supabaseClient.from('documents').select('*').order('due_date'),supabaseClient.from('responsibles').select('*').order('name')]);const err=results.find(r=>r.error);if(err)throw err.error;db={vehicles:results[0].data.map(fromVehicle),services:results[1].data.map(fromService),documents:results[2].data.map(fromDocument),responsibles:results[3].data.map(fromResponsible)};render()}
+async function save(){try{const jobs=[['vehicles',db.vehicles.map(toVehicle)],['services',db.services.map(toService)],['documents',db.documents.map(toDocument)],...(currentRole==='admin'?[['responsibles',db.responsibles.map(toResponsible)]]:[])];for(const [table,rows] of jobs){if(rows.length){const {error}=await supabaseClient.from(table).upsert(rows,{onConflict:'id'});if(error)throw error}}render()}catch(e){console.error(e);alert('Enregistrement impossible dans Supabase : '+(e.message||'erreur inconnue')+'\nVérifiez les droits d’accès et la connexion.');try{await load()}catch(_){}}}
+async function deleteRemote(table,id){const {error}=await supabaseClient.from(table).delete().eq('id',id);if(error){alert('Suppression refusée : '+error.message);await load();return false}return true}
+function showLoginError(message){const el=$('loginError');el.textContent=message;el.style.display='block'}
+async function refreshSession(session){currentUser=session?.user||null;$('loginPanel').hidden=!!currentUser;$('appContent').hidden=!currentUser;if(!currentUser){$('sessionBadge').textContent='APC66 · Connexion requise';return} $('sessionBadge').textContent=currentUser.email||'Connecté';const {data,error}=await supabaseClient.from('profiles').select('role,display_name').eq('id',currentUser.id).single();if(error){showLoginError('Connexion établie mais profil introuvable. Contactez l’administrateur.');await supabaseClient.auth.signOut();return}currentRole=data.role||'responsable';$('sessionBadge').textContent=(currentRole==='admin'?'Administrateur':'Responsable')+' · '+(currentUser.email||'Connecté');try{await load()}catch(e){console.error(e);alert('Impossible de charger les données partagées : '+e.message)}}
+function dueStatus(d){if(!d)return'none';const n=Math.ceil((new Date(d+'T00:00:00')-today)/86400000);return n<0?'late':n<=30?'soon':'ok'}
+function vehicleStatus(v){const dates=[v.nextService,v.techDate,v.insuranceDate,v.adminDate].filter(Boolean);if(!dates.length)return'none';const s=dates.map(dueStatus);return s.includes('late')?'late':s.includes('soon')?'soon':'ok'}
+function badge(s){return s==='late'?'<span class="pill bad">● En retard</span>':s==='soon'?'<span class="pill warn">● À prévoir</span>':s==='ok'?'<span class="pill ok">● À jour</span>':'<span class="pill neutral">Non renseigné</span>'}
+function allDue(){return db.vehicles.reduce((a,v)=>a+[v.nextService,v.techDate,v.insuranceDate,v.adminDate].filter(d=>d&&dueStatus(d)!=='none').length,0)}
+
+function getDeadlines(){
+ const out=[];
+ for(const v of db.vehicles){for(const [field,kind] of [['nextService','Entretien'],['techDate','Contrôle technique'],['insuranceDate','Assurance'],['adminDate','Autre échéance']]){if(v[field]&&/^\d{4}-\d{2}-\d{2}$/.test(v[field]))out.push({vehicle:v.name||'Sans nom',plate:v.plate||'',kind,due:v[field]});}}
+ for(const d of db.documents){if(!d.dueDate||!/^\d{4}-\d{2}-\d{2}$/.test(d.dueDate))continue;const v=vehicle(d.vehicleId);const kind=d.kind||'Document';if(out.some(x=>x.vehicle===(v?.name||'Véhicule non trouvé')&&x.due===d.dueDate&&x.kind===kind))continue;out.push({vehicle:v?.name||'Véhicule non trouvé',plate:v?.plate||'',kind,due:d.dueDate});}
+ return out.map(x=>({...x,status:dueStatus(x.due),days:Math.round((new Date(x.due+'T00:00:00')-today)/86400000)})).sort((a,b)=>a.due.localeCompare(b.due));
+}
+function renderDeadlines(){
+ const all=getDeadlines(),urgent=all.filter(x=>x.status==='late'||x.status==='soon');
+ const late=urgent.filter(x=>x.status==='late').length,soon=urgent.filter(x=>x.status==='soon').length;
+ $('nSoon').textContent=soon;$('nLate').textContent=late;
+ $('deadlineSummary').textContent=late+' en retard · '+soon+' sous 30 jours';
+ $('deadlineItems').innerHTML=urgent.length?urgent.slice(0,12).map(x=>'<div class="deadline-item '+x.status+'"><span class="deadline-kind">'+esc(x.kind)+'</span><div><div class="deadline-vehicle">'+esc(x.vehicle)+'</div><div class="deadline-date">'+esc(x.plate)+' · '+date(x.due)+'</div></div><span class="deadline-pill">'+(x.status==='late'?'En retard de '+Math.abs(x.days)+' j':x.days===0?'Aujourd’hui':'Dans '+x.days+' j')+'</span></div>').join('')+(urgent.length>12?'<p class="help">'+(urgent.length-12)+' autre(s) échéance(s) urgente(s). Consultez les fiches pour le détail.</p>':''):'<p class="help">Aucune échéance urgente renseignée. Les dates absentes ne sont pas considérées comme à jour.</p>';
+ const total=db.services.reduce((sum,s)=>sum+(Number(s.cost)||0),0);
+ const year=new Date().getFullYear();const annual=db.services.filter(s=>s.date&&s.date.startsWith(String(year))).length;
+ const euro=new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'});
+ $('activityMetrics').innerHTML='<div class="activity-metric"><strong>'+annual+'</strong><span>Interventions en '+year+'</span></div><div class="activity-metric"><strong>'+db.documents.length+'</strong><span>Fiches documents</span></div><div class="activity-metric"><strong>'+euro.format(total)+'</strong><span>Coûts enregistrés (toutes années)</span></div>';
+}
+function pdfReport(vehicleId=null){
+ const vehicles=vehicleId?db.vehicles.filter(v=>v.id===vehicleId):db.vehicles;
+ if(!vehicles.length){alert('Aucun véhicule à exporter.');return}
+ const safe=esc;
+ const rows=vehicles.map(v=>{const ss=db.services.filter(s=>s.vehicleId===v.id).sort((a,b)=>(b.date||'').localeCompare(a.date||''));const docs=db.documents.filter(d=>d.vehicleId===v.id);return '<section><h2>'+safe(v.name)+'</h2><p><b>Immatriculation :</b> '+safe(v.plate||'—')+' · <b>Type :</b> '+safe(v.type||'—')+' · <b>Kilométrage :</b> '+safe(v.km||'—')+'</p><p><b>Responsable :</b> '+safe(v.responsible||'Non attribué')+'</p><h3>Échéances</h3><p>Entretien : '+date(v.nextService)+' · Contrôle technique : '+date(v.techDate)+' · Assurance : '+date(v.insuranceDate)+'</p><h3>Historique des interventions</h3>'+(ss.length?'<table><thead><tr><th>Date</th><th>Intervention</th><th>Km</th><th>Coût</th></tr></thead><tbody>'+ss.map(s=>'<tr><td>'+date(s.date)+'</td><td>'+safe(s.kind||'—')+'</td><td>'+safe(s.km||'—')+'</td><td>'+safe(s.cost??'—')+' €</td></tr>').join('')+'</tbody></table>':'<p>Aucune intervention.</p>')+'<h3>Documents suivis</h3>'+(docs.length?'<table><thead><tr><th>Type</th><th>Échéance</th><th>Référence</th></tr></thead><tbody>'+docs.map(d=>'<tr><td>'+safe(d.kind)+'</td><td>'+date(d.dueDate)+'</td><td>'+safe(d.reference||'—')+'</td></tr>').join('')+'</tbody></table>':'<p>Aucun document renseigné.</p>')+'</section>'}).join('');
+ const w=window.open('','_blank');if(!w){alert('Autorisez les fenêtres contextuelles pour générer le rapport PDF.');return}
+ w.document.open();w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>APC66 — Rapport du parc</title><style>body{font-family:Arial,sans-serif;color:#152b43;margin:30px}header{border-bottom:4px solid #f78d20;padding-bottom:14px;color:#12355b}section{break-inside:avoid;page-break-after:always;padding-top:14px}h2{color:#12355b}h3{margin-top:20px}table{border-collapse:collapse;width:100%;font-size:12px}td,th{border:1px solid #ccd5df;padding:7px;text-align:left}th{background:#edf3f8}p{line-height:1.5}@media print{button{display:none}body{margin:12mm}section:last-child{page-break-after:auto}}</style></head><body><header><h1>PROTECTION CIVILE — APC66</h1><p>Rapport de suivi du parc automobile · '+new Date().toLocaleDateString('fr-FR')+'</p></header><p><button onclick="window.print()">Imprimer / Enregistrer en PDF</button></p>'+rows+'</body></html>');w.document.close();
+}
+function renderSmartAlerts(){
+ const entries=[];
+ const dueFields=[['techDate','Contrôle technique'],['insuranceDate','Assurance'],['nextService','Entretien'],['adminDate','Échéance administrative']];
+ for(const v of db.vehicles){
+  for(const [key,kind] of dueFields){
+   const due=v[key];if(!due||!/^\\d{4}-\\d{2}-\\d{2}$/.test(due))continue;
+   const days=Math.round((new Date(due+'T00:00:00')-today)/86400000);
+   if(days>60)continue;
+   const stage=days<0?'Dépassé':days<=7?'J-7':days<=15?'J-15':days<=30?'J-30':'J-60';
+   entries.push({name:v.name,kind,detail:days<0?'Retard '+(-days)+' j':'Dans '+days+' j',stage,sort:days,bad:days<0});
+  }
+  if(v.nextKm!==''&&v.nextKm!=null&&v.km!==''&&v.km!=null){
+   const left=Number(v.nextKm)-Number(v.km);
+   if(Number.isFinite(left)&&left<=1000)entries.push({name:v.name,kind:'Entretien kilométrique',detail:left<=0?'Seuil atteint / dépassé':left+' km restants',stage:'KM',sort:left<=0?-1000:100, bad:left<=0});
+  }
+ }
+ for(const d of db.documents){
+  if(!d.dueDate||!/^\\d{4}-\\d{2}-\\d{2}$/.test(d.dueDate))continue;
+  const days=Math.round((new Date(d.dueDate+'T00:00:00')-today)/86400000);
+  if(days>60)continue;
+  const v=vehicle(d.vehicleId);
+  entries.push({name:v?.name||'Véhicule inconnu',kind:d.kind||'Document',detail:days<0?'Retard '+(-days)+' j':'Dans '+days+' j',stage:days<0?'Dépassé':days<=7?'J-7':days<=15?'J-15':days<=30?'J-30':'J-60',sort:days,bad:days<0});
+ }
+ entries.sort((a,b)=>a.sort-b.sort);
+ $('smartAlertItems').innerHTML=entries.length?entries.slice(0,20).map(x=>'<div class="smart-alert '+(x.bad?'urgent':'')+'"><span class="smart-stage">'+esc(x.stage)+'</span><span><strong>'+esc(x.name)+'</strong><small>'+esc(x.kind)+'</small></span><b>'+esc(x.detail)+'</b></div>').join('')+(entries.length>20?'<p class="help">+'+(entries.length-20)+' autres rappels</p>':''):'<p class="help">Aucun rappel connu dans les 60 prochains jours ou à moins de 1 000 km. Les dates manquantes ne sont pas vérifiées.</p>';
+}
+function render(){ renderSmartAlerts(); renderDeadlines(); if(location.hash.startsWith('#vehicule='))queueMicrotask(openLinkedVehicle); $('addRecord').style.display=(tab==='responsibles'&&currentRole!=='admin')?'none':''; $('nVehicles').textContent=db.vehicles.length;$('nSoon').textContent=db.vehicles.reduce((n,v)=>n+['nextService','techDate','insuranceDate','adminDate'].filter(k=>dueStatus(v[k])==='soon').length,0);$('nLate').textContent=db.vehicles.reduce((n,v)=>n+['nextService','techDate','insuranceDate','adminDate'].filter(k=>dueStatus(v[k])==='late').length,0);$('nServices').textContent=db.services.length;
+const q=$('search').value.toLowerCase().trim(),f=$('filter').value;$('filter').style.display=tab==='vehicles'||tab==='documents'?'':'none';
+let head='',rows=[];
+if(tab==='vehicles'){head='<tr><th>Véhicule</th><th>Immatriculation</th><th>Kilométrage</th><th>Responsable</th><th>Échéances</th><th>Actions</th></tr>';rows=db.vehicles.filter(v=>(!q||[v.name,v.plate,v.type,v.responsible,v.notes].join(' ').toLowerCase().includes(q))&&(!f||vehicleStatus(v)===f)).map(v=>`<tr><td><div class="vehicle">${esc(v.name)}</div><div class="sub">${esc(v.type||'Type non précisé')} ${v.brand?'· '+esc(v.brand):''}</div></td><td><b>${esc(v.plate||'—')}</b></td><td>${v.km?Number(v.km).toLocaleString('fr-FR')+' km':'—'}</td><td>${esc(v.responsible||'Non attribué')}</td><td>${badge(vehicleStatus(v))}<div class="sub">Prochain entretien : ${date(v.nextService)}</div></td><td><div class="row-actions"><button type="button" class="iconbtn" data-act="qr" data-id="${v.id}">QR code</button><button class="iconbtn" data-act="editV" data-id="${v.id}">Modifier</button><button class="iconbtn" data-act="service" data-id="${v.id}">+ Intervention</button><button class="iconbtn" data-act="history" data-id="${v.id}">Historique</button></div></td></tr>`)}
+if(tab==='maintenance'){head='<tr><th>Date</th><th>Véhicule</th><th>Intervention</th><th>Kilométrage</th><th>Coût</th><th>Actions</th></tr>';rows=db.services.filter(s=>{let v=vehicle(s.vehicleId);return !q||[v?.name,v?.plate,s.kind,s.provider,s.notes,s.responsible].join(' ').toLowerCase().includes(q)}).sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(s=>{let v=vehicle(s.vehicleId);return `<tr><td>${date(s.date)}</td><td><div class="vehicle">${esc(v?.name||'Véhicule supprimé')}</div><div class="sub">${esc(v?.plate||'')}</div></td><td><b>${esc(s.kind)}</b><div class="sub">${esc(s.provider||'')} ${s.responsible?'· '+esc(s.responsible):''}</div></td><td>${s.km?Number(s.km).toLocaleString('fr-FR')+' km':'—'}</td><td>${s.cost!==''&&s.cost!=null?Number(s.cost).toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'—'}</td><td><div class="row-actions"><button class="iconbtn" data-act="editS" data-id="${s.id}">Modifier</button>${currentRole==='admin'?`<button class="iconbtn" data-act="delS" data-id="${s.id}">Supprimer</button>`:''}</div></td></tr>`})}
+if(tab==='documents'){head='<tr><th>Document / échéance</th><th>Véhicule</th><th>Date d’échéance</th><th>Référence / notes</th><th>État</th><th>Actions</th></tr>';rows=db.documents.filter(d=>{let v=vehicle(d.vehicleId);return(!q||[d.kind,d.reference,d.notes,v?.name,v?.plate].join(' ').toLowerCase().includes(q))&&(!f||dueStatus(d.dueDate)===f)}).sort((a,b)=>(a.dueDate||'').localeCompare(b.dueDate||'')).map(d=>{let v=vehicle(d.vehicleId);return `<tr><td><b>${esc(d.kind)}</b></td><td>${esc(v?.name||'—')}<div class="sub">${esc(v?.plate||'')}</div></td><td>${date(d.dueDate)}</td><td>${esc(d.reference||'—')}<div class="sub">${esc(d.notes||'')}</div></td><td>${badge(dueStatus(d.dueDate))}</td><td><div class="row-actions"><button class="iconbtn" data-act="editD" data-id="${d.id}">Modifier</button>${currentRole==='admin'?`<button class="iconbtn" data-act="delD" data-id="${d.id}">Supprimer</button>`:''}</div></td></tr>`})}
+if(tab==='responsibles'){head='<tr><th>Responsable</th><th>Rôle</th><th>Contact interne</th><th>Véhicules attribués</th><th>Actions</th></tr>';rows=db.responsibles.filter(r=>!q||[r.name,r.role,r.contact].join(' ').toLowerCase().includes(q)).map(r=>`<tr><td><div class="vehicle">${esc(r.name)}</div></td><td>${esc(r.role||'—')}</td><td>${esc(r.contact||'—')}</td><td>${db.vehicles.filter(v=>v.responsible===r.name).map(v=>esc(v.name)).join(', ')||'—'}</td><td><div class="row-actions">${currentRole==='admin'?`<button class="iconbtn" data-act="editR" data-id="${r.id}">Modifier</button>`:'Consultation seule'}${currentRole==='admin'?`<button class="iconbtn" data-act="delR" data-id="${r.id}">Supprimer</button>`:''}</div></td></tr>`)}
+$('thead').innerHTML=head;$('tbody').innerHTML=rows.join('');
+const mobileLabels=[...$('thead').querySelectorAll('th')].map(th=>th.textContent.trim());
+$('tbody').querySelectorAll('tr').forEach(tr=>{[...tr.querySelectorAll('td')].forEach((td,i)=>td.setAttribute('data-label',mobileLabels[i]||'Actions'));});
+$('empty').hidden=rows.length>0;
+}
+function field(label,name,value='',type='text',extra=''){return `<div class="field"><label for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}" value="${esc(value)}" ${extra}></div>`}
+function select(label,name,opts,value=''){return `<div class="field"><label for="${name}">${label}</label><select id="${name}" name="${name}">${opts.map(o=>`<option value="${esc(o[0])}" ${o[0]===value?'selected':''}>${esc(o[1])}</option>`).join('')}</select></div>`}
+function textarea(label,name,value=''){return `<div class="field full"><label for="${name}">${label}</label><textarea id="${name}" name="${name}">${esc(value)}</textarea></div>`}
+function vehicleForm(v={}){return `<div class="form-grid">${field('Nom / désignation *','name',v.name||'','text','required placeholder="Ex. VSAV 1"')}${field('Immatriculation','plate',v.plate||'')}${select('Catégorie','type',[['Véhicule de secours','Véhicule de secours'],['Véhicule léger','Véhicule léger'],['Utilitaire','Utilitaire'],['Remorque','Remorque'],['Autre','Autre']],v.type||'Véhicule de secours')}${field('Marque / modèle','brand',v.brand||'')}${field('Kilométrage actuel','km',v.km||'','number','min="0"')}${select('Responsable du véhicule','responsible',[['','Non attribué'],...db.responsibles.map(r=>[r.name,r.name])],v.responsible||'') }
+<div class="field full"><div class="small-title">Entretien mécanique</div></div>${field('Prochain entretien — date','nextService',v.nextService||'','date')}${field('Prochain entretien — kilométrage','nextKm',v.nextKm||'','number','min="0"')}
+<div class="field full"><div class="small-title">Documents et échéances administratives</div></div>${field('Contrôle technique — échéance','techDate',v.techDate||'','date')}${field('Assurance — échéance','insuranceDate',v.insuranceDate||'','date')}${field('Autre document / échéance','adminDate',v.adminDate||'','date')}${textarea('Notes véhicule','notes',v.notes||'')}</div><p class="help">Les échéances sont signalées si elles sont dépassées ou prévues dans les 30 prochains jours.</p>`}
+function serviceForm(s={}){return `<div class="form-grid">${select('Véhicule *','vehicleId',db.vehicles.map(v=>[v.id,v.name+(v.plate?' — '+v.plate:'')]),s.vehicleId||db.vehicles[0]?.id||'')}${select('Type d’intervention','kind',['Entretien périodique','Vidange','Pneumatiques','Freinage','Contrôle technique','Réparation mécanique','Carrosserie','Contrôle / vérification','Nettoyage et désinfection','Autre'].map(x=>[x,x]),s.kind||'Entretien périodique')}${field('Date *','date',s.date||new Date().toISOString().slice(0,10),'date','required')}${field('Kilométrage','km',s.km||'','number','min="0"')}${field('Coût (€)','cost',s.cost??'','number','min="0" step="0.01"')}${field('Garage / prestataire','provider',s.provider||'')}${field('Responsable de l’intervention','responsible',s.responsible||'')}${field('Prochaine échéance — date','nextDate',s.nextDate||'','date')}${field('Prochaine échéance — km','nextKm',s.nextKm||'','number','min="0"')}${textarea('Travaux réalisés / observations','notes',s.notes||'')}</div>`}
+function docForm(d={}){return `<div class="form-grid">${select('Véhicule *','vehicleId',db.vehicles.map(v=>[v.id,v.name+(v.plate?' — '+v.plate:'')]),d.vehicleId||db.vehicles[0]?.id||'')}${select('Document / échéance','kind',['Assurance','Contrôle technique','Carte grise / administratif','Contrôle réglementaire','Équipement de sécurité','Autre'].map(x=>[x,x]),d.kind||'Assurance')}${field('Date d’échéance','dueDate',d.dueDate||'','date')}${field('Référence','reference',d.reference||'')}${textarea('Notes','notes',d.notes||'')}</div>`}
+function respForm(r={}){return `<div class="form-grid">${field('Nom ou identifiant du responsable *','name',r.name||'','text','required')}${field('Rôle / fonction','role',r.role||'')}${field('Contact interne (facultatif)','contact',r.contact||'')}${textarea('Notes','notes',r.notes||'')}<p class="help">Ne renseignez que les coordonnées internes nécessaires au suivi du parc.</p></div>`}
+function open(title,body,m,id=null){mode=m;editId=id;$('modalTitle').textContent=title;$('modalBody').innerHTML=body;$('backdrop').classList.add('show');$('save').style.display=m==='history'?'none':'';$('cancel').textContent=m==='history'?'Fermer':'Annuler'}
+function close(){ $('backdrop').classList.remove('show');mode='';editId=null;$('save').style.display='';$('cancel').textContent='Annuler'}
+function addVehicle(id=null){open(id?'Modifier le véhicule':'Ajouter un véhicule',vehicleForm(id?vehicle(id):{}),'vehicle',id)}
+function addService(id=null,vid=null){if(!db.vehicles.length){alert('Ajoutez d’abord un véhicule.');return}const s=id?db.services.find(x=>x.id===id):{vehicleId:vid||db.vehicles[0].id};open(id?'Modifier l’intervention':'Enregistrer une intervention',serviceForm(s),'service',id)}
+function addDoc(id=null){if(!db.vehicles.length){alert('Ajoutez d’abord un véhicule.');return}open(id?'Modifier le document':'Ajouter un document ou une échéance',docForm(id?db.documents.find(x=>x.id===id):{}),'document',id)}
+function addResp(id=null){if(currentRole!=='admin'){alert('Action réservée à l’administrateur.');return}open(id?'Modifier le responsable':'Ajouter un responsable',respForm(id?db.responsibles.find(x=>x.id===id):{}),'responsible',id)}
+function showQR(id){
+ const v=vehicle(id);
+ if(!v){alert('Véhicule introuvable. Actualisez la page.');return;}
+ const link=new URL(location.pathname+location.search,location.origin);
+ link.hash='vehicule='+encodeURIComponent(id);
+ const body='<p class="help">Scannez ce QR code pour ouvrir la fiche après connexion.</p>'+
+ '<div style="display:grid;justify-items:center;gap:12px">'+
+ '<div id="vehicleQR" style="padding:12px;background:white;min-height:230px;min-width:230px;display:grid;place-items:center"></div>'+
+ '<input id="qrLink" readonly style="width:100%;padding:9px" value="'+esc(link.href)+'">'+
+ '<button class="btn" type="button" id="copyQR">Copier le lien</button>'+
+ '<button class="btn" type="button" id="downloadQR">Télécharger le QR code</button></div>';
+ open('QR code — '+v.name,body,'history',id);
+ $('copyQR').onclick=()=>{const input=$('qrLink');input.select();if(navigator.clipboard?.writeText){navigator.clipboard.writeText(link.href).then(()=>alert('Lien copié')).catch(()=>prompt('Copiez ce lien :',link.href))}else{prompt('Copiez ce lien :',link.href)}};
+ if(typeof QRCode!=='function'){
+  $('vehicleQR').textContent='Le générateur QR n’a pas été chargé. Vérifiez votre connexion Internet.';
+  $('downloadQR').disabled=true;
+  return;
+ }
+ try{
+  new QRCode($('vehicleQR'),{text:link.href,width:220,height:220,colorDark:'#102C50',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+  $('downloadQR').onclick=()=>{
+   const canvas=$('vehicleQR').querySelector('canvas');
+   const img=$('vehicleQR').querySelector('img');
+   const url=canvas?.toDataURL('image/png')||img?.src;
+   if(!url){alert('QR code en cours de génération. Réessayez.');return;}
+   const a=document.createElement('a');a.download='APC66-QR-'+(v.plate||v.name).replace(/[^a-z0-9_-]/gi,'_')+'.png';a.href=url;a.click();
+  };
+ }catch(err){console.error('QR code:',err);$('vehicleQR').textContent='Impossible de générer le QR code.';$('downloadQR').disabled=true;}
+}
+function openLinkedVehicle(){
+ const match=location.hash.match(/^#vehicule=([0-9a-f-]{36})$/i);
+ if(!match||!currentUser||!db.vehicles.length)return;
+ const v=vehicle(match[1]);if(!v)return;
+ history(v.id);
+ window.history.replaceState(null,'',location.pathname+location.search);
+}
+function history(id){const v=vehicle(id),ss=db.services.filter(s=>s.vehicleId===id).sort((a,b)=>(b.date||'').localeCompare(a.date||''));const ds=db.documents.filter(d=>d.vehicleId===id);const body=`<div style="margin-bottom:12px"><button class="btn" type="button" id="printVehicle">▤ Exporter cette fiche en PDF</button></div><div class="two-col"><div class="metric"><span>Immatriculation</span><b>${esc(v?.plate||'Non renseignée')}</b></div><div class="metric"><span>Kilométrage</span><b>${v?.km?Number(v.km).toLocaleString('fr-FR')+' km':'Non renseigné'}</b></div></div><div class="small-title">Interventions (${ss.length})</div>${ss.length?ss.map(s=>`<div class="record"><div class="record-top"><span>${esc(s.kind)}</span><span>${date(s.date)}</span></div><div class="record-meta">${s.km?Number(s.km).toLocaleString('fr-FR')+' km · ':''}${s.cost!==''&&s.cost!=null?Number(s.cost).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})+' · ':''}${esc(s.provider||'Prestataire non renseigné')}</div><div class="record-note">${esc(s.notes||'Aucun détail.')}</div></div>`).join(''):'<p class="help">Aucune intervention enregistrée.</p>'}<div class="small-title">Documents / échéances (${ds.length})</div>${ds.length?ds.map(d=>`<div class="record"><div class="record-top"><span>${esc(d.kind)}</span><span>${date(d.dueDate)}</span></div><div class="record-meta">${esc(d.reference||'')}</div><div class="record-note">${esc(d.notes||'')}</div></div>`).join(''):'<p class="help">Aucun document enregistré.</p>'}`;open('Dossier véhicule — '+(v?.name||''),body,'history',id);$('printVehicle').onclick=()=>pdfReport(id)}
+$('form').addEventListener('submit',e=>{e.preventDefault();if(mode==='history')return;if(mode==='responsible'&&currentRole!=='admin'){alert('Action réservée à l’administrateur.');return}const o=Object.fromEntries(new FormData(e.currentTarget).entries());if(mode==='vehicle'){o.km=o.km?Number(o.km):'';o.nextKm=o.nextKm?Number(o.nextKm):'';if(editId)db.vehicles=db.vehicles.map(v=>v.id===editId?{...v,...o}:v);else db.vehicles.push({id:crypto.randomUUID(),...o})}
+else if(mode==='service'){o.km=o.km?Number(o.km):'';o.nextKm=o.nextKm?Number(o.nextKm):'';o.cost=o.cost?Number(o.cost):'';if(editId)db.services=db.services.map(s=>s.id===editId?{...s,...o}:s);else db.services.push({id:crypto.randomUUID(),...o});const v=vehicle(o.vehicleId);if(v){if(o.km!==''&&(!v.km||o.km>=v.km))v.km=o.km;if(o.nextDate)v.nextService=o.nextDate;if(o.nextKm!=='')v.nextKm=o.nextKm}}
+else if(mode==='document'){if(editId)db.documents=db.documents.map(d=>d.id===editId?{...d,...o}:d);else db.documents.push({id:crypto.randomUUID(),...o});const v=vehicle(o.vehicleId);if(v&&o.kind==='Assurance')v.insuranceDate=o.dueDate;if(v&&o.kind==='Contrôle technique')v.techDate=o.dueDate;if(v&&o.kind!=='Assurance'&&o.kind!=='Contrôle technique')v.adminDate=o.dueDate}
+else if(mode==='responsible'){if(editId){const old=db.responsibles.find(r=>r.id===editId)?.name;db.responsibles=db.responsibles.map(r=>r.id===editId?{...r,...o}:r);db.vehicles.forEach(v=>{if(v.responsible===old)v.responsible=o.name})}else db.responsibles.push({id:crypto.randomUUID(),...o})}
+close();save()});
+$('pdfExport').onclick=()=>pdfReport();$('addVehicle').onclick=()=>addVehicle();$('addRecord').onclick=()=>tab==='vehicles'?addService():tab==='maintenance'?addService():tab==='documents'?addDoc():addResp();
+$('close').onclick=close;$('cancel').onclick=close;$('backdrop').onclick=e=>{if(e.target===$('backdrop'))close()};$('search').oninput=render;$('filter').onchange=render;
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));$('addRecord').textContent=tab==='vehicles'?'＋ Enregistrer une intervention':tab==='maintenance'?'＋ Enregistrer une intervention':tab==='documents'?'＋ Ajouter un document':'＋ Ajouter un responsable';render()});
+$('tbody').onclick=e=>{const b=e.target.closest('button[data-act]');if(!b)return;const id=b.dataset.id;switch(b.dataset.act){case'qr':showQR(id);break;case'editV':addVehicle(id);break;case'service':addService(null,id);break;case'history':history(id);break;case'editS':addService(id);break;case'delS':if(currentRole==='admin'&&confirm('Supprimer cette intervention ?')){deleteRemote('services',id).then(ok=>{if(ok){db.services=db.services.filter(s=>s.id!==id);render()}})}break;case'editD':addDoc(id);break;case'delD':if(currentRole==='admin'&&confirm('Supprimer cette échéance ?')){deleteRemote('documents',id).then(ok=>{if(ok){db.documents=db.documents.filter(d=>d.id!==id);render()}})}break;case'editR':if(currentRole==='admin')addResp(id);break;case'delR':if(currentRole==='admin'&&confirm('Supprimer ce responsable ? Les véhicules affectés ne seront plus attribués.')){deleteRemote('responsibles',id).then(ok=>{if(ok){const name=db.responsibles.find(r=>r.id===id)?.name;db.responsibles=db.responsibles.filter(r=>r.id!==id);db.vehicles.forEach(v=>{if(v.responsible===name)v.responsible=''});save()}})}break}};
+$('export').onclick=()=>{const blob=new Blob([JSON.stringify({...db,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='APC66-sauvegarde-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)};
+$('importBtn').onclick=()=>alert('Pour éviter d’écraser les données partagées, l’import JSON est désactivé dans cette version connectée. Contactez l’administrateur pour une migration contrôlée.');
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('loginSubmit').disabled=true;$('loginError').style.display='none';const {error}=await supabaseClient.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});$('loginSubmit').disabled=false;if(error){showLoginError('Connexion impossible. Vérifiez votre e-mail et votre mot de passe.');return}const {data}=await supabaseClient.auth.getSession();await refreshSession(data.session)});
+$('forgotPassword').onclick=async()=>{const email=$('loginEmail').value.trim();if(!email){showLoginError('Saisissez votre adresse e-mail avant de demander une réinitialisation.');return}const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)showLoginError('Demande impossible : '+error.message);else showLoginError('Si cette adresse correspond à un compte, un e-mail de réinitialisation va être envoyé.')};
+$('logoutBtn').onclick=async()=>{await supabaseClient.auth.signOut();db={vehicles:[],services:[],documents:[],responsibles:[]};await refreshSession(null)};
+$('export').onclick=()=>{const blob=new Blob([JSON.stringify({...db,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='APC66-sauvegarde-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)};
+if(!window.supabase?.createClient){showLoginError('La bibliothèque de connexion n’a pas pu être chargée. Vérifiez votre connexion Internet.')}else{supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);supabaseClient.auth.getSession().then(({data})=>refreshSession(data.session));supabaseClient.auth.onAuthStateChange((_event,session)=>{if(session?.user!==currentUser)refreshSession(session)});}
+
+})();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script><script src="./inventaires.js" defer></script></body></html>

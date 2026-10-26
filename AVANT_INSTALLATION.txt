@@ -1,0 +1,9 @@
+APC66 V5 - FICHIERS DE TEST
+
+Le SQL a ete execute et la fonction apc66-sac-public deployee.
+Ce paquet corrige le nom de la fonction dans inventaires.js.
+ATTENTION : Ne pas remplacer le site public avant tests en environnement de test.
+Decompresser puis transferer les six fichiers de site a la racine du depot de test.
+Ne pas uploader ce fichier d instructions.
+Verifier connexion admin et responsable, parc existant, inventaire VPSP, sac, QR et controles avant/apres DPS.
+La fonction publique n a pas ete testee de bout en bout.
